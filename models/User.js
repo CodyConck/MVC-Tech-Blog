@@ -15,27 +15,47 @@ User.init(
             primaryKey: true,
             autoIncrement: true
         },
-        userName: {
+        username: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true,
+            validate: {
+                isEmail: true
+            }
         },
         password: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [4]
+                len: [10]
             }
         }
     },
     {
         hooks: {
-            async beforeCreatePW(newUserData) {
-                newUserData.password = await bcrypt.hash(newUserData.password, 10)
-                return newUserData;
+            async beforeCreate(newUserData) {
+                try {
+                    newUserData.password = await bcrypt.hash(newUserData.password, 10)
+                    return newUserData;
+                    
+                } catch (error) {
+                    console.log(error);
+                }
+                
             },
-            async beforeUpdatePW(updatedUserData) {
-                updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10)
-                return updatedUserData;
+            async beforeUpdate(updatedUserData) {
+                try {
+                    updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10)
+                    return updatedUserData;
+
+                } catch (error) {
+                    console.log(error);
+                }
+                
             }
         },
         sequelize,
