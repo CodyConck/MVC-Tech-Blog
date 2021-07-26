@@ -7,7 +7,7 @@ This is an app that allows users to post and update blogs about any topic in the
 <https://github.com/CodyConck/MVC-Tech-Blog>
 
 ## Deployed Link
-
+<https://codys-mvc-tech-blog.herokuapp.com/>
 
 ## Table of Contents
 
